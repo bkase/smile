@@ -1,4 +1,7 @@
 # .gitignore for smile
 
 *.un~
+*.aux
+*.log
+*.pdf
 

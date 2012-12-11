@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+
+\usepackage{syntax}
+
+\oddsidemargin0cm
+\topmargin-2cm     %I recommend adding these three lines to increase the 
+\textwidth16.5cm   %amount of usable space on the page (and save trees)
+\textheight23.5cm  
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+ 
+
+\begin{document}
+\textbf{Constants:}
+\begin{grammar}
+<con>	::= <int>	 integer
+  \alt <word>	   word
+  \alt <float>	   floating point
+  \alt <char>	   character
+  \alt <string>   string
+
+<int>	::=	 [`-']<num>   decimal
+  \alt [`-']`0x'<hex> hexadecimal
+
+<word>	::=	`0w'<num>	 decimal
+  \alt `0wx'<hex>	 hexadecimal
+
+<float>	::=	 [`-']<num>`.'<num> floating point
+  \alt <num>[`.' <num>] `e' [`-']<num>   	 scientific
+
+<char>	::=	`\'' <ascii> `\''	character
+
+<string>  	::=	`\"' <ascii>$^*$ `\"'	 string
+
+<num>	::=	 <digit>$^+$	 number
+
+<hex>	::=	 <digit \textbar letter>$^+$	 hexadecimal number (letters may only be in the range A-F or a-f)
+
+<ascii>	::=	\dots single non-'' ASCII character or \textbackslash-headed escape sequence
+\end{grammar}
+
+\textbf{Identifiers:}
+\begin{grammar}
+<id>	::=  	<letter><letter \textbar digit \textbar ' \textbar \_>*	 alphanumeric \\
+ \verb[! | % | & | $ | # | + | - | / | : | < | = | \> \textbar ? | @ | \ | ~ | ` | ^ | | | *[   	 symbolic (not allowed for type variables or module language identifiers)
+
+<var>	::=	`\''<id>	 unconstrained
+\alt `\'\''<id>	 equality
+
+<longid>   	::=	<id>$_1$[.<id>$_i$]$^*$	 qualified
+
+<lab>	::=	<id>	 identifier
+  \alt <num>	 number
+\end{grammar}
+
+\textbf{Expressions:}
+\begin{grammar}
+  <exp> ::= <con> constant
+    \alt [op]<logid> value or constructor identifier
+    \alt <exp>$_1$<exp>$_2$ application
+    \alt <exp>$_1$ <id> <exp>$_2$ infix application
+    \alt `(' <exp> `)' parenthesis
+    \alt `(' <exp>$_1$[`,' <exp>$_i$]$^*$ `)' tuple
+    \alt `\{ <exprow> \}' record
+    \alt <id>`#'<lab> record selection
+    \alt <yodawg>
+\end{grammar}
+\end{document}
