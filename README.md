@@ -11,6 +11,8 @@ See grammar.tex and grammar.pdf
 
 * `{ }` for scope instead of `let ... in ... end`
 
+* `r{ ... }` for records to avoid an ambiguous grammar
+
 * `-` instead of `~` for negative numbers
 
 * `+` instead of `^` for string concatenation
@@ -21,7 +23,7 @@ See grammar.tex and grammar.pdf
 
 * `while <exp> { <exp> }` instead of `while <exp> do <exp>`
 
-* Scala-style `<exp> match { <match>* }` instead of `case <exp> match { <pattern>* }`
+* Scala-style `<exp> match { <match>* }` instead of `case <exp> of { <pattern>* }`
 
 * Scala-style patterns `case <pattern> => <match>` instead of `<pattern> => <match>`
 

@@ -43,7 +43,7 @@
 \textbf{Identifiers:}
 \begin{grammar}
 <id>	::=  	<letter><letter \textbar digit \textbar ' \textbar \_>*	 alphanumeric \\
- \verb[! | % | & | $ | # | + | - | / | : | < | = | \> \textbar ? | @ | \ | ~ | ` | ^ | | | *[   	 symbolic (not allowed for type variables or module language identifiers)
+ \verb[! | % | & | $ | # | + | - | / | : | < | = | > | ? | @ | \ | ~ | ` | ^ | | | *[ \\   	 symbolic (not allowed for type variables or module language identifiers)
 
 <var>	::=	`\''<id>	 unconstrained
 \alt `\'\''<id>	 equality
@@ -56,14 +56,31 @@
 
 \textbf{Expressions:}
 \begin{grammar}
+  <blockscope> ::= `{' <dec \textbar exp>$^+$ `}' block-scope
+
+  <anonymous> ::= <pat> `=>' <exp>
+
+  <match> ::= `{ case ' <anonymous> [\textbar `case ' <anonymous>] `}'
+
   <exp> ::= <con> constant
     \alt [op]<logid> value or constructor identifier
     \alt <exp>$_1$<exp>$_2$ application
     \alt <exp>$_1$ <id> <exp>$_2$ infix application
     \alt `(' <exp> `)' parenthesis
     \alt `(' <exp>$_1$[`,' <exp>$_i$]$^*$ `)' tuple
-    \alt `\{ <exprow> \}' record
+    \alt `r\{' <exprow> `\}' record
     \alt <id>`#'<lab> record selection
-    \alt <yodawg>
+    \alt `[' <exp>$_1$[`,' <exp>$_i$]$^*$ `]' list
+    \alt `(' <exp>$_1$[`;' <exp>$_i$]$^*$ `)' sequence
+    \alt <blockscope>
+    \alt <exp>`:'<typ> type declaration
+    \alt `raise' <exp> exception raising
+    \alt <exp> `handle' <match>
+    \alt <exp>$_1$ `&&' <exp>$_2$ conjunction
+    \alt <exp>$_1$ `||' <exp>$_2$ disjunction
+    \alt `if' <exp> <blockscope> `else' <blockscope> conditional
+    \alt `while' <exp> <blockscope> iteration
+    \alt <exp> match <match> case analysis
+    \alt <anonymous>
 \end{grammar}
 \end{document}
