@@ -4,4 +4,7 @@
 *.aux
 *.log
 *.pdf
+.idea/
+.idea_modules/
+target/
 
